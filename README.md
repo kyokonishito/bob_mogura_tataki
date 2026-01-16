@@ -1,6 +1,9 @@
 # 🔨 もぐらたたきゲーム
 
-Webブラウザで遊べる本格的なもぐらたたきゲームです。
+Webブラウザで遊べる本格的なもぐらたたきゲームです。[IBM Bob](https://www.ibm.com/products/bob)で作成されました。
+
+実際に動くものはこちら:<br>
+https://kyokonishito.github.io/bob_mogura_tataki/
 
 ## 🎮 ゲームの特徴
 
