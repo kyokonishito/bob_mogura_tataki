@@ -1,0 +1,491 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    overflow: hidden;
+}
+
+.container {
+    background: white;
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 600px;
+    width: 100%;
+    position: relative;
+    z-index: 1;
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 2.5em;
+}
+
+/* 難易度選択画面 */
+.difficulty-screen {
+    text-align: center;
+}
+
+.difficulty-screen h2 {
+    color: #333;
+    margin-bottom: 30px;
+    font-size: 1.8em;
+}
+
+.difficulty-buttons {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.difficulty-btn {
+    flex: 1;
+    min-width: 150px;
+    padding: 30px 20px;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    border: 3px solid transparent;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+
+.difficulty-btn:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    border-color: #667eea;
+}
+
+.difficulty-icon {
+    font-size: 3em;
+}
+
+.difficulty-name {
+    font-size: 1.3em;
+    font-weight: bold;
+    color: #333;
+}
+
+.difficulty-desc {
+    font-size: 0.9em;
+    color: #666;
+}
+
+.high-score-display {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.high-score-display h3 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+.high-scores {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.high-score-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: white;
+    border-radius: 5px;
+}
+
+.difficulty-label {
+    color: #666;
+    font-weight: bold;
+}
+
+.high-score-value {
+    color: #667eea;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+
+/* ゲーム画面 */
+.game-screen.hidden,
+.difficulty-screen.hidden {
+    display: none;
+}
+
+.game-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.info-item {
+    text-align: center;
+}
+
+.label {
+    font-size: 1em;
+    color: #666;
+    margin-right: 5px;
+}
+
+.value {
+    font-size: 2em;
+    font-weight: bold;
+    color: #667eea;
+}
+
+.value.combo {
+    color: #ff6b6b;
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #e9ecef;
+    border-radius: 15px;
+}
+
+.hole {
+    aspect-ratio: 1;
+    background: #6c757d;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: inset 0 5px 15px rgba(0, 0, 0, 0.5);
+    transition: transform 0.1s;
+}
+
+.hole:active {
+    transform: scale(0.95);
+}
+
+.mole {
+    width: 80%;
+    height: 80%;
+    background: #8b4513;
+    border-radius: 50%;
+    position: absolute;
+    bottom: -100%;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: bottom 0.2s ease-out;
+    cursor: pointer;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+.mole::before {
+    content: '👀';
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.5em;
+}
+
+/* 特殊もぐら */
+.mole.bonus {
+    background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+    box-shadow: 0 5px 15px rgba(255, 215, 0, 0.6);
+}
+
+.mole.bonus::before {
+    content: '⭐';
+}
+
+.mole.bomb {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    box-shadow: 0 5px 15px rgba(231, 76, 60, 0.6);
+}
+
+.mole.bomb::before {
+    content: '💣';
+}
+
+.mole.show {
+    bottom: 10%;
+}
+
+.mole:hover {
+    filter: brightness(1.1);
+}
+
+.btn {
+    width: 100%;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.6);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+.btn:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn-secondary {
+    background: linear-gradient(135deg, #95a5a6 0%, #7f8c8d 100%);
+    margin-top: 10px;
+}
+
+.btn-secondary:hover {
+    box-shadow: 0 8px 20px rgba(127, 140, 141, 0.6);
+}
+
+.game-over {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.game-over.hidden {
+    display: none;
+}
+
+.game-over-content {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    animation: slideIn 0.3s ease-out;
+    max-width: 400px;
+    width: 90%;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.game-over-content h2 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+.final-stats {
+    margin-bottom: 30px;
+}
+
+.stat-item {
+    font-size: 1.3em;
+    color: #666;
+    margin: 10px 0;
+}
+
+.stat-value {
+    color: #667eea;
+    font-weight: bold;
+    font-size: 1.3em;
+}
+
+.new-high-score {
+    color: #ffd700;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 15px;
+    animation: pulse 1s infinite;
+}
+
+.new-high-score.hidden {
+    display: none;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+}
+
+.game-over-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* パーティクルエフェクト */
+#particleContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+}
+
+.particle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    pointer-events: none;
+    animation: particleFloat 1s ease-out forwards;
+}
+
+@keyframes particleFloat {
+    0% {
+        transform: translate(0, 0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--tx), var(--ty)) scale(0);
+        opacity: 0;
+    }
+}
+
+/* クリック時のエフェクト */
+@keyframes hit {
+    0% {
+        transform: translateX(-50%) scale(1);
+    }
+    50% {
+        transform: translateX(-50%) scale(0.8);
+    }
+    100% {
+        transform: translateX(-50%) scale(1);
+        bottom: -100%;
+    }
+}
+
+.mole.hit {
+    animation: hit 0.3s ease-out;
+}
+
+/* コンボ表示アニメーション */
+@keyframes comboPopup {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.3);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.value.combo.active {
+    animation: comboPopup 0.3s ease-out;
+}
+
+/* スコアポップアップ */
+.score-popup {
+    position: absolute;
+    font-size: 2em;
+    font-weight: bold;
+    color: #667eea;
+    pointer-events: none;
+    z-index: 100;
+    animation: scoreFloat 1s ease-out forwards;
+}
+
+.score-popup.bonus {
+    color: #ffd700;
+}
+
+.score-popup.bomb {
+    color: #e74c3c;
+}
+
+@keyframes scoreFloat {
+    0% {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-50px) scale(1.5);
+        opacity: 0;
+    }
+}
+
+/* レスポンシブデザイン */
+@media (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
+
+    h1 {
+        font-size: 1.8em;
+    }
+
+    .game-board {
+        gap: 10px;
+        padding: 10px;
+    }
+
+    .value {
+        font-size: 1.5em;
+    }
+
+    .mole::before {
+        font-size: 1em;
+    }
+
+    .difficulty-buttons {
+        flex-direction: column;
+    }
+
+    .difficulty-btn {
+        min-width: 100%;
+    }
+}
+
+/* Made with Bob */

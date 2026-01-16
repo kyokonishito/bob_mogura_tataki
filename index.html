@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>もぐらたたきゲーム - 改良版</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>🔨 もぐらたたきゲーム</h1>
+        
+        <!-- 難易度選択画面 -->
+        <div id="difficultyScreen" class="difficulty-screen">
+            <h2>難易度を選択してください</h2>
+            <div class="difficulty-buttons">
+                <button class="difficulty-btn" data-difficulty="easy">
+                    <span class="difficulty-icon">😊</span>
+                    <span class="difficulty-name">簡単</span>
+                    <span class="difficulty-desc">ゆっくり出現</span>
+                </button>
+                <button class="difficulty-btn" data-difficulty="normal">
+                    <span class="difficulty-icon">😐</span>
+                    <span class="difficulty-name">普通</span>
+                    <span class="difficulty-desc">標準スピード</span>
+                </button>
+                <button class="difficulty-btn" data-difficulty="hard">
+                    <span class="difficulty-icon">😤</span>
+                    <span class="difficulty-name">難しい</span>
+                    <span class="difficulty-desc">高速出現</span>
+                </button>
+            </div>
+            <div class="high-score-display">
+                <h3>🏆 ハイスコア</h3>
+                <div class="high-scores">
+                    <div class="high-score-item">
+                        <span class="difficulty-label">簡単:</span>
+                        <span id="highScoreEasy" class="high-score-value">0</span>
+                    </div>
+                    <div class="high-score-item">
+                        <span class="difficulty-label">普通:</span>
+                        <span id="highScoreNormal" class="high-score-value">0</span>
+                    </div>
+                    <div class="high-score-item">
+                        <span class="difficulty-label">難しい:</span>
+                        <span id="highScoreHard" class="high-score-value">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ゲーム画面 -->
+        <div id="gameScreen" class="game-screen hidden">
+            <div class="game-info">
+                <div class="info-item">
+                    <span class="label">スコア:</span>
+                    <span id="score" class="value">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">コンボ:</span>
+                    <span id="combo" class="value combo">0</span>
+                </div>
+                <div class="info-item">
+                    <span class="label">残り時間:</span>
+                    <span id="time" class="value">60</span>
+                    <span class="label">秒</span>
+                </div>
+            </div>
+
+            <div class="game-board">
+                <div class="hole" data-index="0">
+                    <div class="mole"></div>
+                </div>
+                <div class="hole" data-index="1">
+                    <div class="mole"></div>
+                </div>
+                <div class="hole" data-index="2">
+                    <div class="mole"></div>
+                </div>
+                <div class="hole" data-index="3">
+                    <div class="mole"></div>
+                </div>
+                <div class="hole" data-index="4">
+                    <div class="mole"></div>
+                </div>
+                <div class="hole" data-index="5">
+                    <div class="mole"></div>
+                </div>
+                <div class="hole" data-index="6">
+                    <div class="mole"></div>
+                </div>
+                <div class="hole" data-index="7">
+                    <div class="mole"></div>
+                </div>
+                <div class="hole" data-index="8">
+                    <div class="mole"></div>
+                </div>
+            </div>
+
+            <button id="backBtn" class="btn btn-secondary">難易度選択に戻る</button>
+        </div>
+
+        <!-- ゲームオーバー画面 -->
+        <div id="gameOver" class="game-over hidden">
+            <div class="game-over-content">
+                <h2>🎉 ゲーム終了！</h2>
+                <div class="final-stats">
+                    <p class="stat-item">最終スコア: <span id="finalScore" class="stat-value">0</span></p>
+                    <p class="stat-item">最大コンボ: <span id="maxCombo" class="stat-value">0</span></p>
+                    <p id="newHighScore" class="new-high-score hidden">🏆 新記録達成！</p>
+                </div>
+                <div class="game-over-buttons">
+                    <button id="restartBtn" class="btn">もう一度プレイ</button>
+                    <button id="backToMenuBtn" class="btn btn-secondary">メニューに戻る</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- パーティクルコンテナ -->
+    <div id="particleContainer"></div>
+
+    <script src="game.js"></script>
+</body>
+</html>
